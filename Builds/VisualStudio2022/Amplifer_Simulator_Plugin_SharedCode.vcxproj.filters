@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Amplifer_Simulator_Plugin\IR_Files">
+      <UniqueIdentifier>{1297F444-3319-BE92-E0DE-8EB5D319B8CC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Amplifer_Simulator_Plugin\Parameters">
       <UniqueIdentifier>{F8945BE2-4F22-746B-8EF8-35E7B21A0D39}</UniqueIdentifier>
     </Filter>
@@ -3618,6 +3621,9 @@
     </ClCompile>
     <ClCompile Include="C:\JUCE\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+      <Filter>JUCE Library Code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
@@ -7722,6 +7728,9 @@
     <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.h">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
+      <Filter>JUCE Library Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
@@ -7730,6 +7739,15 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\IR_Files\Gibson_J-45_2_48000.wav">
+      <Filter>Amplifer_Simulator_Plugin\IR_Files</Filter>
+    </None>
+    <None Include="..\..\Source\IR_Files\Gibson_J-45_2_48000_Match.wav">
+      <Filter>Amplifer_Simulator_Plugin\IR_Files</Filter>
+    </None>
+    <None Include="..\..\Source\Acoustasonic_Mex3_48k_Ph_Qck_Std.wav">
+      <Filter>Amplifer_Simulator_Plugin</Filter>
+    </None>
     <None Include="C:\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">
       <Filter>JUCE Modules\juce_audio_devices\native\oboe\src\common</Filter>
     </None>

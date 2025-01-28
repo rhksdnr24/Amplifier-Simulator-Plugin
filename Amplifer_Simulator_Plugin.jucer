@@ -3,6 +3,12 @@
 <JUCERPROJECT id="AZooPG" name="Amplifer_Simulator_Plugin" projectType="audioplug"
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="Xv7Mkp" name="Amplifer_Simulator_Plugin">
+    <GROUP id="{EFF4F3E4-4521-4718-B31E-CF6EC721195C}" name="IR_Files">
+      <FILE id="HQbj9X" name="Gibson_J-45_2_48000.wav" compile="0" resource="1"
+            file="Source/IR_Files/Gibson_J-45_2_48000.wav"/>
+      <FILE id="XunpDn" name="Gibson_J-45_2_48000_Match.wav" compile="0"
+            resource="1" file="Source/IR_Files/Gibson_J-45_2_48000_Match.wav"/>
+    </GROUP>
     <GROUP id="{44F49019-841A-10C9-9499-AE8FB1932486}" name="Parameters">
       <FILE id="JJJHeO" name="Globals.cpp" compile="1" resource="0" file="Source/Parameters/Globals.cpp"/>
       <FILE id="kVFUWc" name="Globals.h" compile="0" resource="0" file="Source/Parameters/Globals.h"/>
@@ -16,6 +22,8 @@
             file="Source/PluginEditor.cpp"/>
       <FILE id="vo1XJz" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
+    <FILE id="LUB0td" name="Acoustasonic_Mex3_48k_Ph_Qck_Std.wav" compile="0"
+          resource="1" file="Source/Acoustasonic_Mex3_48k_Ph_Qck_Std.wav"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
