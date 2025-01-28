@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio Version 17
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Amplifer_Simulator_Plugin - Standalone Plugin", "Amplifer_Simulator_Plugin_StandalonePlugin.vcxproj", "{72F73449-FA0A-FD66-2B96-6572D320B2BA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{56BF4522-D16F-CAE4-EEF2-F379AF24A20F} = {56BF4522-D16F-CAE4-EEF2-F379AF24A20F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Amplifer_Simulator_Plugin - VST3", "Amplifer_Simulator_Plugin_VST3.vcxproj", "{8D86AD02-1507-E425-05B5-214C34D1223F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{56BF4522-D16F-CAE4-EEF2-F379AF24A20F} = {56BF4522-D16F-CAE4-EEF2-F379AF24A20F}
+		{F26BC287-E940-384D-7196-D9D7FD48400F} = {F26BC287-E940-384D-7196-D9D7FD48400F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Amplifer_Simulator_Plugin - Shared Code", "Amplifer_Simulator_Plugin_SharedCode.vcxproj", "{56BF4522-D16F-CAE4-EEF2-F379AF24A20F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Amplifer_Simulator_Plugin - VST3 Manifest Helper", "Amplifer_Simulator_Plugin_VST3ManifestHelper.vcxproj", "{F26BC287-E940-384D-7196-D9D7FD48400F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D86AD02-1507-E425-05B5-214C34D1223F}.Debug|x64.ActiveCfg = Debug|x64
+		{8D86AD02-1507-E425-05B5-214C34D1223F}.Debug|x64.Build.0 = Debug|x64
+		{8D86AD02-1507-E425-05B5-214C34D1223F}.Release|x64.ActiveCfg = Release|x64
+		{8D86AD02-1507-E425-05B5-214C34D1223F}.Release|x64.Build.0 = Release|x64
+		{72F73449-FA0A-FD66-2B96-6572D320B2BA}.Debug|x64.ActiveCfg = Debug|x64
+		{72F73449-FA0A-FD66-2B96-6572D320B2BA}.Debug|x64.Build.0 = Debug|x64
+		{72F73449-FA0A-FD66-2B96-6572D320B2BA}.Release|x64.ActiveCfg = Release|x64
+		{72F73449-FA0A-FD66-2B96-6572D320B2BA}.Release|x64.Build.0 = Release|x64
+		{56BF4522-D16F-CAE4-EEF2-F379AF24A20F}.Debug|x64.ActiveCfg = Debug|x64
+		{56BF4522-D16F-CAE4-EEF2-F379AF24A20F}.Debug|x64.Build.0 = Debug|x64
+		{56BF4522-D16F-CAE4-EEF2-F379AF24A20F}.Release|x64.ActiveCfg = Release|x64
+		{56BF4522-D16F-CAE4-EEF2-F379AF24A20F}.Release|x64.Build.0 = Release|x64
+		{F26BC287-E940-384D-7196-D9D7FD48400F}.Debug|x64.ActiveCfg = Debug|x64
+		{F26BC287-E940-384D-7196-D9D7FD48400F}.Debug|x64.Build.0 = Debug|x64
+		{F26BC287-E940-384D-7196-D9D7FD48400F}.Release|x64.ActiveCfg = Release|x64
+		{F26BC287-E940-384D-7196-D9D7FD48400F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
