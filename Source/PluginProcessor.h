@@ -57,7 +57,7 @@ public:
     
     void updateParams();
 
-    juce::AudioProcessorValueTreeState mTreeState;
+    juce::AudioProcessorValueTreeState apvts;
     juce::dsp::Convolution mSpeakerModule;
 private:
     juce::dsp::ProcessSpec mSpec;

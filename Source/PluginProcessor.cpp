@@ -21,15 +21,15 @@ Amplifer_Simulator_PluginAudioProcessor::Amplifer_Simulator_PluginAudioProcessor
                      #endif
 //                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
 //                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-), mTreeState(*this, nullptr, "PARAMETERS", createParameterLayout())
+), apvts(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    mTreeState.addParameterListener(inputID, this);
+    apvts.addParameterListener(inputID, this);
 }
 
 Amplifer_Simulator_PluginAudioProcessor::~Amplifer_Simulator_PluginAudioProcessor()
 {
-    mTreeState.removeParameterListener(inputID, this);
+    apvts.removeParameterListener(inputID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout Amplifer_Simulator_PluginAudioProcessor::createParameterLayout()
