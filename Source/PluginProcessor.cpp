@@ -24,10 +24,12 @@ Amplifer_Simulator_PluginAudioProcessor::Amplifer_Simulator_PluginAudioProcessor
 ), mTreeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    mTreeState.addParameterListener(inputID, this);
 }
 
 Amplifer_Simulator_PluginAudioProcessor::~Amplifer_Simulator_PluginAudioProcessor()
 {
+    mTreeState.removeParameterListener(inputID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout Amplifer_Simulator_PluginAudioProcessor::createParameterLayout()
@@ -43,8 +45,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout Amplifer_Simulator_PluginAud
 
 void Amplifer_Simulator_PluginAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
+    updateParams();
+}
+
+void Amplifer_Simulator_PluginAudioProcessor::updateParams()
+{
     
 }
+
 //==============================================================================
 const juce::String Amplifer_Simulator_PluginAudioProcessor::getName() const
 {
@@ -116,6 +124,12 @@ void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, 
     
     mSpeakerModule.prepare(mSpec);
     mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+    
+    mSpeakerCompensate.prepare(mSpec);
+    mSpeakerCompensate.setRampDurationSeconds(0.02);
+    mSpeakerCompensate.setGainDecibels(6.0);
+    updateParams();
+    
 }
 
 void Amplifer_Simulator_PluginAudioProcessor::releaseResources()
