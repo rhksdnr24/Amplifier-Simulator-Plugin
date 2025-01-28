@@ -110,12 +110,12 @@ void Amplifer_Simulator_PluginAudioProcessor::changeProgramName (int index, cons
 //==============================================================================
 void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.sampleRate = sampleRate;
-    spec.numChannels = getTotalNumOutputChannels();
+    mSpec.maximumBlockSize = samplesPerBlock;
+    mSpec.sampleRate = sampleRate;
+    mSpec.numChannels = getTotalNumOutputChannels();
     
-    speakerModule.prepare(spec);
-    speakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+    mSpeakerModule.prepare(mSpec);
+    mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
 }
 
 void Amplifer_Simulator_PluginAudioProcessor::releaseResources()
@@ -157,7 +157,8 @@ void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<fl
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
     juce::dsp::AudioBlock<float> block {buffer};
-    speakerModule.process(juce::dsp::ProcessContextReplacing<float>(block));
+    mSpeakerModule.process(juce::dsp::ProcessContextReplacing<float>(block));
+    mSpeakerCompensate.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================

@@ -56,9 +56,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     juce::AudioProcessorValueTreeState mTreeState;
-    juce::dsp::Convolution speakerModule;
+    juce::dsp::Convolution mSpeakerModule;
 private:
-    juce::dsp::ProcessSpec spec;
+    juce::dsp::ProcessSpec mSpec;
+    juce::dsp::Gain<float> mSpeakerCompensate;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void parameterChanged(const juce::String& parameterID, float newValue) override;
     //==============================================================================
