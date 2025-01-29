@@ -38,10 +38,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout Amplifer_Simulator_PluginAud
 
     params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(inputID, 1), inputName, -24.0f, 24.0f, 0.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(outputID, 1), outputName, -24.0f, 24.0f, 0.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(presenceID, 1), presenceName, -24.0f, 24.0f, 0.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(bassID, 1), bassName, -24.0f, 24.0f, 0.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(middleID, 1), middleName, -24.0f, 24.0f, 0.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(trebleID, 1), trebleName, -24.0f, 24.0f, 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(presenceID, 1), presenceName, 0.5f, 1.5f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(bassID, 1), bassName, 0.0f, 2.0f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(middleID, 1), middleName, 0.0f, 2.0f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(trebleID, 1), trebleName, 0.0f, 2.0f, 1.0f));
 
     
     return {params.begin(), params.end()};
@@ -120,19 +120,34 @@ void Amplifer_Simulator_PluginAudioProcessor::changeProgramName (int index, cons
 {
 }
 
+void Amplifer_Simulator_PluginAudioProcessor::presence()
+{
+        
+}
+
+void Amplifer_Simulator_PluginAudioProcessor::equalize()
+{
+        
+}
+
 //==============================================================================
 void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     mSpec.maximumBlockSize = samplesPerBlock;
     mSpec.sampleRate = sampleRate;
     mSpec.numChannels = getTotalNumOutputChannels();
+
+    updateParams();
     
     mSpeakerModule.prepare(mSpec);
     mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
     
     _gain.prepare(mSpec);
     _gain.setRampDurationSeconds(0.02);
-    updateParams();
+    
+    presence();
+    equalize();
+    
     
 }
 
