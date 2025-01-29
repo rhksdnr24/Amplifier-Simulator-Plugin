@@ -60,9 +60,28 @@ public:
     juce::AudioProcessorValueTreeState apvts;
     juce::dsp::Convolution mSpeakerModule;
 private:
-    juce::dsp::ProcessSpec mSpec;
-    juce::dsp::Gain<float> _input;
+    enum
+    {
+        presenceIndex,
+        bassIndex,
+        middleIndex,
+        trebleIndex
+    };
+
+    using IIRFilter = juce::dsp::IIR::Filter<float>;
+    using IIRCoefs = juce::dsp::IIR::Coefficients<float>;
+
+    juce::dsp::Gain<float> _gain;
+    
+    juce::dsp::ProcessorChain<juce::dsp::ProcessorDuplicator<IIRFilter, IIRCoefs>,
+    juce::dsp::ProcessorDuplicator<IIRFilter, IIRCoefs>,
+    juce::dsp::ProcessorDuplicator<IIRFilter, IIRCoefs>,
+    juce::dsp::ProcessorDuplicator<IIRFilter, IIRCoefs>> processorChain;
+
     juce::dsp::Gain<float> _output;
+
+    juce::dsp::ProcessSpec mSpec;
+
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void parameterChanged(const juce::String& parameterID, float newValue) override;
     //==============================================================================
