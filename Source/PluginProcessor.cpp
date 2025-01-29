@@ -50,7 +50,8 @@ void Amplifer_Simulator_PluginAudioProcessor::parameterChanged(const juce::Strin
 
 void Amplifer_Simulator_PluginAudioProcessor::updateParams()
 {
-    
+    _input.setGainDecibels(*apvts.getRawParameterValue(inputID));
+    _output.setGainDecibels(*apvts.getRawParameterValue(outputID));
 }
 
 //==============================================================================
@@ -125,9 +126,8 @@ void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, 
     mSpeakerModule.prepare(mSpec);
     mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
     
-    mSpeakerCompensate.prepare(mSpec);
-    mSpeakerCompensate.setRampDurationSeconds(0.02);
-    mSpeakerCompensate.setGainDecibels(6.0);
+    _input.prepare(mSpec);
+    _input.setRampDurationSeconds(0.02);
     updateParams();
     
 }
@@ -171,8 +171,11 @@ void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<fl
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
     juce::dsp::AudioBlock<float> block {buffer};
+
+    updateParams();
+
     mSpeakerModule.process(juce::dsp::ProcessContextReplacing<float>(block));
-    mSpeakerCompensate.process(juce::dsp::ProcessContextReplacing<float>(block));
+    _input.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================

@@ -61,7 +61,8 @@ public:
     juce::dsp::Convolution mSpeakerModule;
 private:
     juce::dsp::ProcessSpec mSpec;
-    juce::dsp::Gain<float> mSpeakerCompensate;
+    juce::dsp::Gain<float> _input;
+    juce::dsp::Gain<float> _output;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void parameterChanged(const juce::String& parameterID, float newValue) override;
     //==============================================================================
