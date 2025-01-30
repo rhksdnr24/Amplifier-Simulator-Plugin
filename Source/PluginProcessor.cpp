@@ -122,12 +122,47 @@ void Amplifer_Simulator_PluginAudioProcessor::changeProgramName (int index, cons
 
 void Amplifer_Simulator_PluginAudioProcessor::presence()
 {
-        
+    float presenceEq = *apvts.getRawParameterValue(presenceID);
+    
+    float centerFreqeuncy = 3000.0f + presenceEq * 500.0f;
+    float qFactor = 0.6f + presenceEq * 0.05f;
+    
+    centerFreqeuncy = juce::jlimit(3000.0f, 6000.0f, centerFreqeuncy);
+    qFactor = juce::jlimit(0.1f, 1.0f, qFactor);
+    
+    auto& presenceFilter = processorChain.get<presenceIndex>();
+    *presenceFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), centerFreqeuncy, qFactor, presenceEq);
 }
 
 void Amplifer_Simulator_PluginAudioProcessor::equalize()
 {
-        
+    float bassGain = *apvts.getRawParameterValue(bassID);
+    float middleGain = *apvts.getRawParameterValue(middleID);
+    float trebleGain = *apvts.getRawParameterValue(trebleID);
+    
+    bassGain = juce::jlimit(0.01f, 2.0f, bassGain);
+    middleGain = juce::jlimit(0.01f, 2.0f, middleGain);
+    trebleGain = juce::jlimit(0.01f, 2.0f, trebleGain);
+    
+    auto& bassFilter = processorChain.get<bassIndex>();
+    *bassFilter.state = *juce::dsp::IIR::Coefficients<float>::makeLowShelf(getSampleRate(), 100.0f, 0.6f, bassGain);
+    
+    auto& middleFilter = processorChain.get<middleIndex>();
+    *middleFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), 500.0f, 0.8f, middleGain);
+    
+    auto& trebleFilter = processorChain.get<trebleIndex>();
+    *trebleFilter.state = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(getSampleRate(), 5000.0f, 0.6f, trebleGain);
+    
+//    auto& bassFilter = processorChain.get<bassIndex>();
+//    *bassFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 100.0f, 0.6f, bass);
+//
+//    auto& midFilter = processorChain.get<midIndex>();
+//    *midFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 500.0f, 0.9f, mid);
+//
+//    auto& trebleFilter = processorChain.get<trebleIndex>();
+//    *trebleFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 5000.0f, 0.6f, treble);
+
+    
 }
 
 //==============================================================================
@@ -150,7 +185,7 @@ void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, 
     
     presence();
     equalize();
-    
+    processorChain.prepare(mSpec);
     
 }
 
@@ -196,21 +231,16 @@ void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<fl
     _gain.setGainDecibels(*apvts.getRawParameterValue(gainID));
     _gain.process(juce::dsp::ProcessContextReplacing<float>(inputBlock));
 
-
     presence();
-    
-    
-    
     equalize();
 
-
-
+    juce::dsp::AudioBlock<float> processorChainBlock {buffer};
+    processorChain.process(juce::dsp::ProcessContextReplacing<float>(processorChainBlock));
+    
     juce::dsp::AudioBlock<float> outputBlock {buffer};
     _output.setGainDecibels(*apvts.getRawParameterValue(outputID));
     _output.process(juce::dsp::ProcessContextReplacing<float>(outputBlock));
 
-    
-    
 }
 
 //==============================================================================
