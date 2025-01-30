@@ -145,13 +145,13 @@ void Amplifer_Simulator_PluginAudioProcessor::equalize()
     trebleGain = juce::jlimit(0.01f, 2.0f, trebleGain);
     
     auto& bassFilter = processorChain.get<bassIndex>();
-    *bassFilter.state = *juce::dsp::IIR::Coefficients<float>::makeLowShelf(getSampleRate(), 100.0f, 0.6f, bassGain);
+    *bassFilter.state = *juce::dsp::IIR::Coefficients<float>::makeLowShelf(getSampleRate(), 150.0f, 0.6f, bassGain);
     
     auto& middleFilter = processorChain.get<middleIndex>();
     *middleFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), 500.0f, 0.8f, middleGain);
     
     auto& trebleFilter = processorChain.get<trebleIndex>();
-    *trebleFilter.state = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(getSampleRate(), 5000.0f, 0.6f, trebleGain);
+    *trebleFilter.state = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(getSampleRate(), 3000.0f, 0.6f, trebleGain);
     
 //    auto& bassFilter = processorChain.get<bassIndex>();
 //    *bassFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 100.0f, 0.6f, bass);
