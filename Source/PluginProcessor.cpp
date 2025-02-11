@@ -207,7 +207,7 @@ void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<fl
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    if (*apvts.getRawParameterValue(Amp_1_OnOffSwitchID))
+    if (isSwitchOn(Amp_1_OnOffSwitchID))
     {
         
         updateGainSettings();
@@ -278,4 +278,8 @@ void Amplifer_Simulator_PluginAudioProcessor::processParameters(juce::dsp::Audio
     processorChain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     _output.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
+}
+bool Amplifer_Simulator_PluginAudioProcessor::isSwitchOn(juce::String ID)
+{
+    return *apvts.getRawParameterValue(ID);
 }

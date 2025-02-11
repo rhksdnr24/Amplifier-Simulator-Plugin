@@ -62,6 +62,7 @@ public:
     void updateEqualizeSettings();
     void prepareDSPModules();
     void updateGainSettings();
+    bool isSwitchOn(juce::String ID);
 
 
     juce::AudioProcessorValueTreeState apvts;
