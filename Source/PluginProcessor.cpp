@@ -169,27 +169,6 @@ void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, 
     prepareParams();
 }
 
-void Amplifer_Simulator_PluginAudioProcessor::prepareParams()
-{
-    mSpeakerModule.prepare(mSpec);
-    _gain.prepare(mSpec);
-    _gain.setRampDurationSeconds(0.02);
-    _output.prepare(mSpec);
-    _output.setRampDurationSeconds(0.02);
-    processorChain.prepare(mSpec);
-}
-
-void Amplifer_Simulator_PluginAudioProcessor::updateGainSettings()
-{
-    mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav,
-                                       BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize,
-                                       juce::dsp::Convolution::Stereo::yes,
-                                       juce::dsp::Convolution::Trim::yes, 0);
-
-    _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
-    _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
-}
-
 void Amplifer_Simulator_PluginAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
@@ -221,14 +200,6 @@ bool Amplifer_Simulator_PluginAudioProcessor::isBusesLayoutSupported (const Buse
   #endif
 }
 #endif
-
-void Amplifer_Simulator_PluginAudioProcessor::processParameters(juce::dsp::AudioBlock<float> audioBlock)
-{
-    _gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    processorChain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    _output.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-
-}
 
 void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
@@ -278,4 +249,33 @@ void Amplifer_Simulator_PluginAudioProcessor::setStateInformation (const void* d
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new Amplifer_Simulator_PluginAudioProcessor();
+}
+
+void Amplifer_Simulator_PluginAudioProcessor::updateGainSettings()
+{
+    mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav,
+                                       BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize,
+                                       juce::dsp::Convolution::Stereo::yes,
+                                       juce::dsp::Convolution::Trim::yes, 0);
+
+    _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
+    _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
+}
+
+void Amplifer_Simulator_PluginAudioProcessor::prepareParams()
+{
+    mSpeakerModule.prepare(mSpec);
+    _gain.prepare(mSpec);
+    _gain.setRampDurationSeconds(0.02);
+    _output.prepare(mSpec);
+    _output.setRampDurationSeconds(0.02);
+    processorChain.prepare(mSpec);
+}
+
+void Amplifer_Simulator_PluginAudioProcessor::processParameters(juce::dsp::AudioBlock<float> audioBlock)
+{
+    _gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    processorChain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    _output.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+
 }
