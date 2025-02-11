@@ -11,11 +11,13 @@
 
 //==============================================================================
 Amplifer_Simulator_PluginAudioProcessorEditor::Amplifer_Simulator_PluginAudioProcessorEditor (Amplifer_Simulator_PluginAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), audioProcessor (p), bar(audioProcessor.apvts)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    DBG("Edittor Constructor");
+    addAndMakeVisible(bar);
+    setSize (Window_W, Window_H);
 }
 
 Amplifer_Simulator_PluginAudioProcessorEditor::~Amplifer_Simulator_PluginAudioProcessorEditor()
@@ -37,4 +39,6 @@ void Amplifer_Simulator_PluginAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    DBG("Editor Resized: " << getWidth() << "x" << getHeight());
+    bar.setBounds(getLocalBounds());
 }

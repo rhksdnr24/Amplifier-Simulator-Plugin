@@ -140,6 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Parameters\Globals.cpp"/>
+    <ClCompile Include="..\..\Source\UI\Component\Amp_1_Component.cpp"/>
+    <ClCompile Include="..\..\Source\UI\Component\CustomComponent.cpp"/>
+    <ClCompile Include="..\..\Source\UI\AmpPage.cpp"/>
+    <ClCompile Include="..\..\Source\UI\CustomPage.cpp"/>
+    <ClCompile Include="..\..\Source\UI\PostFxPage.cpp"/>
+    <ClCompile Include="..\..\Source\UI\PreFxPage.cpp"/>
+    <ClCompile Include="..\..\Source\UI\TabBar.cpp"/>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
@@ -2920,6 +2927,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Parameters\Globals.h"/>
+    <ClInclude Include="..\..\Source\UI\Component\Amp_1_Component.h"/>
+    <ClInclude Include="..\..\Source\UI\Component\CustomComponent.h"/>
+    <ClInclude Include="..\..\Source\UI\AmpPage.h"/>
+    <ClInclude Include="..\..\Source\UI\CustomPage.h"/>
+    <ClInclude Include="..\..\Source\UI\PostFxPage.h"/>
+    <ClInclude Include="..\..\Source\UI\PreFxPage.h"/>
+    <ClInclude Include="..\..\Source\UI\TabBar.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

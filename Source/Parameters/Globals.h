@@ -1,36 +1,66 @@
 #pragma once
 #include <JuceHeader.h>
 
-extern const juce::String gainID;
-extern const juce::String gainName;
+extern const juce::String Amp_1_OnOffSwitchID;
+extern const juce::String Amp_1_OnOffSwitchName;
 
-extern const juce::String bassID;
-extern const juce::String bassName;
+extern const juce::String Amp_1_GainID;
+extern const juce::String Amp_1_GainName;
 
-extern const juce::String middleID;
-extern const juce::String middleName;
+extern const juce::String Amp_1_BassID;
+extern const juce::String Amp_1_BassName;
 
-extern const juce::String trebleID;
-extern const juce::String trebleName;
+extern const juce::String Amp_1_MiddleID;
+extern const juce::String Amp_1_MiddleName;
 
-extern const juce::String presenceID;
-extern const juce::String presenceName;
+extern const juce::String Amp_1_TrebleID;
+extern const juce::String Amp_1_TrebleName;
 
-extern const juce::String masterID;
-extern const juce::String masterName;
+extern const juce::String Amp_1_PresenceID;
+extern const juce::String Amp_1_PresenceName;
 
-extern const juce::String inputID;
-extern const juce::String inputName;
+extern const juce::String Amp_1_MasterID;
+extern const juce::String Amp_1_MasterName;
 
-extern const juce::String outputID;
-extern const juce::String outputName;
+extern const juce::String Amp_1_ProcessorChainID;
+extern const juce::String Amp_1_ProcessorChainName;
 
-extern const juce::String phaseID;
-extern const juce::String phaseName;
+extern const juce::String Amp_1_InputID;
+extern const juce::String Amp_1_InputName;
 
-extern const juce::String hqID;
-extern const juce::String hqName;
+extern const juce::String Amp_1_OutputID;
+extern const juce::String Amp_1_OutputName;
 
-extern const juce::String colorID;
-extern const juce::String colorName;
+extern const juce::String Amp_1_PhaseID;
+extern const juce::String Amp_1_PhaseName;
+
+extern const juce::String Amp_1_HqID;
+extern const juce::String Amp_1_HqName;
+
+extern const juce::String Amp_1_ColorID;
+extern const juce::String Amp_1_ColorName;
+
+extern const juce::String Amp_1_ToggleID;
+extern const juce::String Amp_1_ToggleName;
+
+extern const juce::int32 Window_W;
+extern const juce::int32 Window_H;
+
+extern const juce::int32 Amp_Nobe_Pos_W;
+extern const juce::int32 Amp_Nobe_Pos_H;
+
+extern const juce::int32 Amp_Nobe_Size_W;
+extern const juce::int32 Amp_Nobe_Size_H;
+
+extern const juce::int32 Amp_Nobe_Label_H;
+extern const juce::int32 Amp_Nobe_Label_2_Slider;
+
+extern const juce::int32 Amp_Switch_Pos_W;
+extern const juce::int32 Amp_Switch_Pos_H;
+
+extern const juce::int32 Amp_Switch_Size_W;
+extern const juce::int32 Amp_Switch_Size_H;
+
+extern const juce::int32 Amp_Switch_Label_H;
+extern const juce::int32 Amp_Switch_Label_2_Toggle;
 

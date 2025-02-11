@@ -14,6 +14,28 @@
       <FILE id="kVFUWc" name="Globals.h" compile="0" resource="0" file="Source/Parameters/Globals.h"/>
     </GROUP>
     <GROUP id="{D2F22261-817E-D384-7533-A1FA78AAC55F}" name="Source">
+      <GROUP id="{4E8715D0-3E28-732B-9C95-41C0B2A64C3D}" name="UI">
+        <GROUP id="{5DCA548D-C64D-4CC1-1864-5199D3E9D027}" name="Component">
+          <FILE id="PHEuR3" name="Amp_1_Component.cpp" compile="1" resource="0"
+                file="Source/UI/Component/Amp_1_Component.cpp"/>
+          <FILE id="ZKD0px" name="Amp_1_Component.h" compile="0" resource="0"
+                file="Source/UI/Component/Amp_1_Component.h"/>
+          <FILE id="kTBrsa" name="CustomComponent.cpp" compile="1" resource="0"
+                file="Source/UI/Component/CustomComponent.cpp"/>
+          <FILE id="WMZ5hx" name="CustomComponent.h" compile="0" resource="0"
+                file="Source/UI/Component/CustomComponent.h"/>
+        </GROUP>
+        <FILE id="RtFzUw" name="AmpPage.cpp" compile="1" resource="0" file="Source/UI/AmpPage.cpp"/>
+        <FILE id="uc7qzd" name="AmpPage.h" compile="0" resource="0" file="Source/UI/AmpPage.h"/>
+        <FILE id="TvN4kw" name="CustomPage.cpp" compile="1" resource="0" file="Source/UI/CustomPage.cpp"/>
+        <FILE id="oV9Y3h" name="CustomPage.h" compile="0" resource="0" file="Source/UI/CustomPage.h"/>
+        <FILE id="DwgoZu" name="PostFxPage.cpp" compile="1" resource="0" file="Source/UI/PostFxPage.cpp"/>
+        <FILE id="bjiWPa" name="PostFxPage.h" compile="0" resource="0" file="Source/UI/PostFxPage.h"/>
+        <FILE id="dbJZ5s" name="PreFxPage.cpp" compile="1" resource="0" file="Source/UI/PreFxPage.cpp"/>
+        <FILE id="lKtKyZ" name="PreFxPage.h" compile="0" resource="0" file="Source/UI/PreFxPage.h"/>
+        <FILE id="MsTJTC" name="TabBar.cpp" compile="1" resource="0" file="Source/UI/TabBar.cpp"/>
+        <FILE id="DVubc1" name="TabBar.h" compile="0" resource="0" file="Source/UI/TabBar.h"/>
+      </GROUP>
       <FILE id="F7WOgP" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="Plv3rB" name="PluginProcessor.h" compile="0" resource="0"

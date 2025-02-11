@@ -8,6 +8,12 @@
     <Filter Include="Amplifer_Simulator_Plugin\Parameters">
       <UniqueIdentifier>{F8945BE2-4F22-746B-8EF8-35E7B21A0D39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Amplifer_Simulator_Plugin\Source\UI\Component">
+      <UniqueIdentifier>{6C99F476-8B92-7EC5-466C-4C071681A167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Amplifer_Simulator_Plugin\Source\UI">
+      <UniqueIdentifier>{6E643F2B-0D21-7248-04CD-D23EEB7D6FE4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Amplifer_Simulator_Plugin\Source">
       <UniqueIdentifier>{93DA768B-D4C6-6555-FAE6-BF2770E8A739}</UniqueIdentifier>
     </Filter>
@@ -720,6 +726,27 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\Parameters\Globals.cpp">
       <Filter>Amplifer_Simulator_Plugin\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\Component\Amp_1_Component.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\Component\CustomComponent.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\AmpPage.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\CustomPage.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\PostFxPage.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\PreFxPage.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\TabBar.cpp">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
       <Filter>Amplifer_Simulator_Plugin\Source</Filter>
@@ -3683,6 +3710,27 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\Parameters\Globals.h">
       <Filter>Amplifer_Simulator_Plugin\Parameters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\Component\Amp_1_Component.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\Component\CustomComponent.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\AmpPage.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\CustomPage.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\PostFxPage.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\PreFxPage.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\TabBar.h">
+      <Filter>Amplifer_Simulator_Plugin\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">
       <Filter>Amplifer_Simulator_Plugin\Source</Filter>

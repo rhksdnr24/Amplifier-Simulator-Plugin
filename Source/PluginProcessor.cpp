@@ -24,26 +24,26 @@ Amplifer_Simulator_PluginAudioProcessor::Amplifer_Simulator_PluginAudioProcessor
 ), apvts(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    apvts.addParameterListener(gainID, this);
+    apvts.addParameterListener(Amp_1_GainID, this);
 }
 
 Amplifer_Simulator_PluginAudioProcessor::~Amplifer_Simulator_PluginAudioProcessor()
 {
-    apvts.removeParameterListener(gainID, this);
+    apvts.removeParameterListener(Amp_1_GainID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout Amplifer_Simulator_PluginAudioProcessor::createParameterLayout()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(gainID, 1), gainName, -24.0f, 24.0f, 0.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(outputID, 1), outputName, -24.0f, 24.0f, 0.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(presenceID, 1), presenceName, 0.5f, 1.5f, 1.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(bassID, 1), bassName, 0.0f, 2.0f, 1.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(middleID, 1), middleName, 0.0f, 2.0f, 1.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(trebleID, 1), trebleName, 0.0f, 2.0f, 1.0f));
-
-    
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(Amp_1_GainID, 1), Amp_1_GainName, -24.0f, 24.0f, 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(Amp_1_OutputID, 1), Amp_1_OutputName, -24.0f, 24.0f, 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(Amp_1_PresenceID, 1), Amp_1_PresenceName, 0.5f, 1.5f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(Amp_1_BassID, 1), Amp_1_BassName, 0.0f, 2.0f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(Amp_1_MiddleID, 1), Amp_1_MiddleName, 0.0f, 2.0f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat> (juce::ParameterID(Amp_1_TrebleID, 1), Amp_1_TrebleName, 0.0f, 2.0f, 1.0f));
+    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID(Amp_1_OnOffSwitchID, 1),Amp_1_OnOffSwitchName, false));
+    DBG("parameter made");
     return {params.begin(), params.end()};
 }
 
@@ -54,8 +54,8 @@ void Amplifer_Simulator_PluginAudioProcessor::parameterChanged(const juce::Strin
 
 void Amplifer_Simulator_PluginAudioProcessor::updateParams()
 {
-    _gain.setGainDecibels(*apvts.getRawParameterValue(gainID));
-    _output.setGainDecibels(*apvts.getRawParameterValue(outputID));
+    _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
+    _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
 }
 
 //==============================================================================
@@ -122,7 +122,7 @@ void Amplifer_Simulator_PluginAudioProcessor::changeProgramName (int index, cons
 
 void Amplifer_Simulator_PluginAudioProcessor::presence()
 {
-    float presenceEq = *apvts.getRawParameterValue(presenceID);
+    float presenceEq = *apvts.getRawParameterValue(Amp_1_PresenceID);
     
     float centerFreqeuncy = 3000.0f + presenceEq * 500.0f;
     float qFactor = 0.6f + presenceEq * 0.05f;
@@ -136,9 +136,9 @@ void Amplifer_Simulator_PluginAudioProcessor::presence()
 
 void Amplifer_Simulator_PluginAudioProcessor::equalize()
 {
-    float bassGain = *apvts.getRawParameterValue(bassID);
-    float middleGain = *apvts.getRawParameterValue(middleID);
-    float trebleGain = *apvts.getRawParameterValue(trebleID);
+    float bassGain = *apvts.getRawParameterValue(Amp_1_BassID);
+    float middleGain = *apvts.getRawParameterValue(Amp_1_MiddleID);
+    float trebleGain = *apvts.getRawParameterValue(Amp_1_TrebleID);
     
     bassGain = juce::jlimit(0.01f, 2.0f, bassGain);
     middleGain = juce::jlimit(0.01f, 2.0f, middleGain);
@@ -172,10 +172,10 @@ void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, 
     mSpec.sampleRate = sampleRate;
     mSpec.numChannels = getTotalNumOutputChannels();
 
-    _gain.setGainDecibels(*apvts.getRawParameterValue(gainID));
+    _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
     
 
-    _output.setGainDecibels(*apvts.getRawParameterValue(outputID));
+    _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
 
     mSpeakerModule.prepare(mSpec);
     mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
@@ -227,20 +227,23 @@ void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<fl
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    juce::dsp::AudioBlock<float> inputBlock {buffer};
-    _gain.setGainDecibels(*apvts.getRawParameterValue(gainID));
-    _gain.process(juce::dsp::ProcessContextReplacing<float>(inputBlock));
-
-    presence();
-    equalize();
-
-    juce::dsp::AudioBlock<float> processorChainBlock {buffer};
-    processorChain.process(juce::dsp::ProcessContextReplacing<float>(processorChainBlock));
+    if (*apvts.getRawParameterValue(Amp_1_OnOffSwitchID))
+    {
+        juce::dsp::AudioBlock<float> inputBlock {buffer};
+        _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
+        _gain.process(juce::dsp::ProcessContextReplacing<float>(inputBlock));
+        
+        presence();
+        equalize();
+        
+        juce::dsp::AudioBlock<float> processorChainBlock {buffer};
+        processorChain.process(juce::dsp::ProcessContextReplacing<float>(processorChainBlock));
+        
+        juce::dsp::AudioBlock<float> outputBlock {buffer};
+        _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
+        _output.process(juce::dsp::ProcessContextReplacing<float>(outputBlock));
+    }
     
-    juce::dsp::AudioBlock<float> outputBlock {buffer};
-    _output.setGainDecibels(*apvts.getRawParameterValue(outputID));
-    _output.process(juce::dsp::ProcessContextReplacing<float>(outputBlock));
-
 }
 
 //==============================================================================
@@ -251,8 +254,8 @@ bool Amplifer_Simulator_PluginAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* Amplifer_Simulator_PluginAudioProcessor::createEditor()
 {
-//    return new Amplifer_Simulator_PluginAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor(*this);
+    return new Amplifer_Simulator_PluginAudioProcessorEditor (*this);
+//    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
