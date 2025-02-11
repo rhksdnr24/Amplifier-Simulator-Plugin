@@ -56,8 +56,13 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void updateParams();
-    void presence();
-    void equalize();
+    void prepareParams();
+    void processParameters(juce::dsp::AudioBlock<float> audioBlock);
+    void updatePresenceSettings();
+    void updateEqualizeSettings();
+    void prepareDSPModules();
+    void updateGainSettings();
+
 
     juce::AudioProcessorValueTreeState apvts;
     juce::dsp::Convolution mSpeakerModule;

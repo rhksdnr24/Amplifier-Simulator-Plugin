@@ -120,7 +120,7 @@ void Amplifer_Simulator_PluginAudioProcessor::changeProgramName (int index, cons
 {
 }
 
-void Amplifer_Simulator_PluginAudioProcessor::presence()
+void Amplifer_Simulator_PluginAudioProcessor::updatePresenceSettings()
 {
     float presenceEq = *apvts.getRawParameterValue(Amp_1_PresenceID);
     
@@ -134,7 +134,7 @@ void Amplifer_Simulator_PluginAudioProcessor::presence()
     *presenceFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), centerFreqeuncy, qFactor, presenceEq);
 }
 
-void Amplifer_Simulator_PluginAudioProcessor::equalize()
+void Amplifer_Simulator_PluginAudioProcessor::updateEqualizeSettings()
 {
     float bassGain = *apvts.getRawParameterValue(Amp_1_BassID);
     float middleGain = *apvts.getRawParameterValue(Amp_1_MiddleID);
@@ -153,16 +153,6 @@ void Amplifer_Simulator_PluginAudioProcessor::equalize()
     auto& trebleFilter = processorChain.get<trebleIndex>();
     *trebleFilter.state = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(getSampleRate(), 3000.0f, 0.6f, trebleGain);
     
-//    auto& bassFilter = processorChain.get<bassIndex>();
-//    *bassFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 100.0f, 0.6f, bass);
-//
-//    auto& midFilter = processorChain.get<midIndex>();
-//    *midFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 500.0f, 0.9f, mid);
-//
-//    auto& trebleFilter = processorChain.get<trebleIndex>();
-//    *trebleFilter.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter (getSampleRate(), 5000.0f, 0.6f, treble);
-
-    
 }
 
 //==============================================================================
@@ -172,21 +162,32 @@ void Amplifer_Simulator_PluginAudioProcessor::prepareToPlay (double sampleRate, 
     mSpec.sampleRate = sampleRate;
     mSpec.numChannels = getTotalNumOutputChannels();
 
-    _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
+    updateGainSettings();
+    updatePresenceSettings();
+    updateEqualizeSettings();
     
+    prepareParams();
+}
 
-    _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
-
+void Amplifer_Simulator_PluginAudioProcessor::prepareParams()
+{
     mSpeakerModule.prepare(mSpec);
-    mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav, BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
-    
     _gain.prepare(mSpec);
     _gain.setRampDurationSeconds(0.02);
-    
-    presence();
-    equalize();
+    _output.prepare(mSpec);
+    _output.setRampDurationSeconds(0.02);
     processorChain.prepare(mSpec);
-    
+}
+
+void Amplifer_Simulator_PluginAudioProcessor::updateGainSettings()
+{
+    mSpeakerModule.loadImpulseResponse(BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wav,
+                                       BinaryData::Acoustasonic_Mex3_48k_Ph_Qck_Std_wavSize,
+                                       juce::dsp::Convolution::Stereo::yes,
+                                       juce::dsp::Convolution::Trim::yes, 0);
+
+    _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
+    _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
 }
 
 void Amplifer_Simulator_PluginAudioProcessor::releaseResources()
@@ -221,6 +222,14 @@ bool Amplifer_Simulator_PluginAudioProcessor::isBusesLayoutSupported (const Buse
 }
 #endif
 
+void Amplifer_Simulator_PluginAudioProcessor::processParameters(juce::dsp::AudioBlock<float> audioBlock)
+{
+    _gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    processorChain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    _output.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+
+}
+
 void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
@@ -229,19 +238,11 @@ void Amplifer_Simulator_PluginAudioProcessor::processBlock (juce::AudioBuffer<fl
 
     if (*apvts.getRawParameterValue(Amp_1_OnOffSwitchID))
     {
-        juce::dsp::AudioBlock<float> inputBlock {buffer};
-        _gain.setGainDecibels(*apvts.getRawParameterValue(Amp_1_GainID));
-        _gain.process(juce::dsp::ProcessContextReplacing<float>(inputBlock));
         
-        presence();
-        equalize();
-        
-        juce::dsp::AudioBlock<float> processorChainBlock {buffer};
-        processorChain.process(juce::dsp::ProcessContextReplacing<float>(processorChainBlock));
-        
-        juce::dsp::AudioBlock<float> outputBlock {buffer};
-        _output.setGainDecibels(*apvts.getRawParameterValue(Amp_1_OutputID));
-        _output.process(juce::dsp::ProcessContextReplacing<float>(outputBlock));
+        updateGainSettings();
+        updatePresenceSettings();
+        updateEqualizeSettings();
+        processParameters(juce::dsp::AudioBlock<float>(buffer));
     }
     
 }
